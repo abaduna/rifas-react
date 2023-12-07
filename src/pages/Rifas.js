@@ -6,7 +6,7 @@ import {AddNumeros} from "../Hoocks/useAddNumber"
 
 function Rifas() {
     const [numero,setNumero] = useState("")    
-    const [nombre,setNumbre] = useState("")    
+    const [nombre,setNombre] = useState("")    
     const transactionColectionRef = collection(db,"numeros")
     const handlerMandaData=()=>{
         console.log(`click`);
@@ -22,8 +22,10 @@ function Rifas() {
 
     <>
     <h1>Rifas</h1>
-    <label>El numeor que queres </label>
+    <label>El numero que queres </label>
     <input placeholder='Numeo que quieres comprar'onChange={(e)=>setNumero(e.target.value)} type='number' />
+    <label>A nombre de quien esta</label>
+    <input placeholder='Quien sos?'onChange={(e)=>setNombre(e.target.value)} type='string' />
     <button onClick={handlerMandaData}>Subir data</button>
     <Container>
         <spam>1</spam>

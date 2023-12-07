@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {db} from "../confic/firebase"
-import {collection} from "firebase/firestore"
+import {getDocs,collection} from "firebase/firestore"
 
 function Numeros() {
-    var numerosRef = db.collection("numeros");
-    numerosRef.get().then((snapshot) => {
-        // Recorrer cada documento de la instantánea
-        snapshot.forEach((doc) => {
-          // Imprimir el id y los datos del documento
-          console.log(doc.id, " => ", doc.data());
-        });
-      });
+
+    const [numero,SetNumero] = useState([])
+    const moviesCollectionRef = collection(db, "numeros");
+    const conseguirNumero =async()=>{
+    try {
+        const data = await getDocs(moviesCollectionRef);
+
+        const filteredData = data.docs.map((doc) => ({
+            ...doc.data(),
+            id:doc.id
+        }));
+        SetNumero(filteredData);
+        console.log(numero);
+    } catch (error) {
+        
+    }        
+    }
+useEffect(()=>{
+    conseguirNumero()
+},[])
   return (
-    <div>Numeros</div>
+    <>
+    <h3>Hola</h3>
+    {numero?.map((num)=>(<div>
+         <h2>{num.nombre}</h2>
+        <span>El numero es {num.numero}</span>
+    </div>
+       
+    ))}
+    </>
   )
 }
 
