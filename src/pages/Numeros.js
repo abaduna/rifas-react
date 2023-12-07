@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {db} from "../confic/firebase"
-import {getDocs,collection} from "firebase/firestore"
+import {getDocs,collection,doc,deleteDoc} from "firebase/firestore"
+import { Button, Col, Container } from 'react-bootstrap';
 
 function Numeros() {
 
@@ -23,15 +24,23 @@ function Numeros() {
 useEffect(()=>{
     conseguirNumero()
 },[])
+const deledNumero =async(id)=>{
+    await deleteDoc(doc(db, "numeros", id));
+    conseguirNumero()
+}
   return (
     <>
     <h3>Hola</h3>
-    {numero?.map((num)=>(<div>
-         <h2>{num.nombre}</h2>
-        <span>El numero es {num.numero}</span>
-    </div>
-       
-    ))}
+    <div className="grid">
+    {numero?.map((num, index) => (
+        <div className="grid-item" key={num.id}>
+          <h2>{num.nombre}</h2>
+          <span>El numero es {num.numero}</span>
+          <Button onClick={()=>deledNumero(num.id)}>Eliminar</Button>
+        </div>
+      ))}        
+    </div   >
+
     </>
   )
 }
