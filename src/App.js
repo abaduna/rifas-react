@@ -4,12 +4,14 @@ import Rifas from './pages/Rifas';
 // import WriteNumeros from "./pages/WriteNumeros"
 import Numeros from './pages/Numeros';
 import MostrarNumeros from './pages/MostrarNumeros';
+import RoutesPrincial from './route/Router';
 function App() {
   return (
     <div className="App">
-      <Rifas></Rifas>
-      <Numeros></Numeros>
-      <MostrarNumeros></MostrarNumeros>
+      <RoutesPrincial></RoutesPrincial>
+      {/* <Rifas></Rifas>
+      <Numeros></Numeros> */}
+      
     </div>
   );
 }

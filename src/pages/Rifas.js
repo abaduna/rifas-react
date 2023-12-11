@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import {Container} from "react-bootstrap"
 import { db } from '../confic/firebase'
 import {AddNumeros} from "../Hoocks/useAddNumber"
-
+import Numeros from './Numeros'
 function Rifas() {
     const [numero,setNumero] = useState("")    
     const [nombre,setNombre] = useState("")  
@@ -46,6 +46,7 @@ function Rifas() {
     <Container>
         <spam>1</spam>
     </Container>
+    <Numeros></Numeros> 
     </>
   )
 }

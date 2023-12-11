@@ -1,38 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import {getDocs,collection} from "firebase/firestore"
 import { db } from '../confic/firebase'
-    const numeros = Array.from({ length: 100 }, (_, index) => index + 1)
+    
 const MostrarNumeros = () => {
     const [numerosFiltradosState,SetNumerosFiltradosState]= useState([])
 
     const transactionColectionRef = collection(db, "numeros");
     const verificarNumeros = async () => {
-        try {
+
         
-         
+          const numeros = Array.from({ length: 100 }, (_, index) => index + 1) // num 1 al 100
           const querySnapshot = await getDocs(transactionColectionRef);
           const data = querySnapshot.docs.map((doc) => doc.data().numero);
-          console.log(data);
-            if (data.length != 0) {
-                console.log(`if`);
-               const numerosFiltrados = numeros.filter((element) => !data.includes(element)); 
-               console.log(numerosFiltrados);
-               // Actualizar el estado después de obtener los datos
-               SetNumerosFiltradosState(numerosFiltrados);
-            }
-          // Filtrar los elementos de 'numeros' que no están en 'data'
+          console.log(data); // ['69', '6', '1', '100', '2', '3', '5']
+          let numeroData = data.map(str => parseInt(str));
+          const numerosFiltrados = numeros.filter(numero => !numeroData.includes(numero));
+          console.log(numerosFiltrados); 
+          SetNumerosFiltradosState(numerosFiltrados)
+
+
           
-    
+         
           
-        } catch (error) {
-          console.error("Error al obtener datos:", error);
-        }
       };
     useEffect(()=>{
         verificarNumeros()
     },[])
   return (
     <>
+    <h1>Numero disponibles</h1>
+    
     <div className="grid">
     {numerosFiltradosState.map((numero) => (
           <li key={numero}>{numero}</li>
